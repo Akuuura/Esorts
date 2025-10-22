@@ -82,6 +82,25 @@
         "id": "brand_cream",
         "label": "Section Background (Cream)",
         "default": "#f7f5f0"
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "url", 
+        "id": "social_linkedin_link",
+        "label": "LinkedIn URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_link", 
+        "label": "YouTube URL"
       }
     ]
   },
