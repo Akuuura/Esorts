@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "everyday-ai-hero": {
+      "type": "everyday-ai-hero",
+      "settings": {
+        "title": "About Keith Williams",
+        "subtitle": "AI Expert & Community Builder",
+        "description": "Leading the conversation on practical AI applications for everyday people and businesses.",
+        "show_cta": false
+      }
+    },
+    "about-keith": {
+      "type": "about-keith"
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "everyday-ai-hero", 
+    "about-keith",
+    "main"
+  ]
+}
