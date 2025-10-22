@@ -122,7 +122,7 @@
           "block_order": ["product_image", "product_title", "product_price"]
         }
       },
-      "block_order": ["static-header", "static-product-card"],
+      "block_order": [],
       "settings": {
         "collection": "all",
         "layout_type": "grid",

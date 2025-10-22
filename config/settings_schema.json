@@ -46,14 +46,12 @@
       {
         "type": "url",
         "id": "town_hall_link", 
-        "label": "Town Hall Link",
-        "default": "#town-hall"
+        "label": "Town Hall Link"
       },
       {
         "type": "url",
         "id": "about_keith_link",
-        "label": "About Keith Link", 
-        "default": "#about-keith"
+        "label": "About Keith Link"
       },
       {
         "type": "header",
