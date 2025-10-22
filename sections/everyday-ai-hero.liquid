@@ -1,0 +1,347 @@
+{% liquid
+  assign title = section.settings.title | default: 'Everyday AI'
+  assign subtitle = section.settings.subtitle 
+  assign description = section.settings.description
+  assign keith_tagline = section.settings.keith_tagline
+  assign primary_button_text = section.settings.primary_button_text
+  assign primary_button_link = section.settings.primary_button_link
+  assign secondary_button_text = section.settings.secondary_button_text
+  assign secondary_button_link = section.settings.secondary_button_link
+  assign logo_image = section.settings.logo_image
+  assign padding_top = section.settings.padding_top | default: 96
+  assign padding_bottom = section.settings.padding_bottom | default: 128
+%}
+
+<style>
+  .everyday-ai-hero {
+    background: var(--warm-white, #fefdfb);
+    padding: {{ padding_top }}px 1.5rem {{ padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-icon-wrapper {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-icon {
+    width: 240px;
+    height: 240px;
+    position: relative;
+    filter: drop-shadow(0 10px 30px rgb(29 64 53 / 10%));
+  }
+
+  .hero-content {
+    position: relative;
+  }
+
+  .hero-title-sub {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--primary, #1d4035);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title-main {
+    display: block;
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--secondary, #2d2d2d);
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .hero-intro {
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--secondary, #2d2d2d);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--gray-700, #333);
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--accent, #b85a1f);
+    color: var(--warm-white, #fefdfb);
+    border-color: var(--accent, #b85a1f);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary, #1d4035);
+    border-color: var(--primary, #1d4035);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgb(29 64 53 / 20%);
+  }
+
+  .btn-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--secondary, #2d2d2d);
+    border: 2px solid var(--stone, #d1cbc1);
+  }
+
+  .btn-secondary:hover {
+    background: var(--cream, #f7f5f0);
+    border-color: var(--primary, #1d4035);
+    color: var(--primary, #1d4035);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+    
+    .hero-icon-wrapper {
+      width: 220px;
+      height: 220px;
+    }
+    
+    .hero-icon {
+      width: 180px;
+      height: 180px;
+    }
+    
+    .hero-title-main {
+      font-size: 3.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .everyday-ai-hero {
+      padding: 48px 1.5rem 64px;
+    }
+    
+    .hero-grid {
+      gap: 2rem;
+    }
+    
+    .hero-icon-wrapper {
+      width: 200px;
+      height: 200px;
+    }
+    
+    .hero-icon {
+      width: 160px;
+      height: 160px;
+    }
+    
+    .hero-title-main {
+      font-size: 2.5rem;
+    }
+    
+    .hero-title-sub {
+      font-size: 1rem;
+    }
+    
+    .hero-lead {
+      font-size: 1.125rem;
+    }
+    
+    .hero-description {
+      font-size: 1rem;
+    }
+    
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<section class="everyday-ai-hero">
+  <div class="hero-grid">
+    <div class="hero-visual">
+      <div class="hero-icon-wrapper">
+        {% if logo_image != blank %}
+          <img src="{{ logo_image | image_url: width: 240, height: 240 }}" alt="{{ title }}" class="hero-icon" width="240" height="240">
+        {% else %}
+          <div class="hero-icon" style="background: var(--primary, #1d4035); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: var(--warm-white, #fefdfb); font-size: 2.5rem; font-weight: 900;">
+            AI
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="hero-content">
+      {% if subtitle != blank %}
+        <span class="hero-title-sub">{{ subtitle }}</span>
+      {% endif %}
+      
+      <h1 class="hero-title-main">{{ title }}</h1>
+      
+      <div class="hero-intro">
+        {% if keith_tagline != blank %}
+          <p class="hero-lead">{{ keith_tagline }}</p>
+        {% endif %}
+        {% if description != blank %}
+          <p class="hero-description">{{ description }}</p>
+        {% endif %}
+      </div>
+      
+      <div class="hero-actions">
+        {% if primary_button_text != blank and primary_button_link != blank %}
+          <a href="{{ primary_button_link }}" class="btn-primary">
+            <span>{{ primary_button_text }}</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        {% endif %}
+        {% if secondary_button_text != blank and secondary_button_link != blank %}
+          <a href="{{ secondary_button_link }}" class="btn-secondary">{{ secondary_button_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Everyday AI Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Everyday AI"
+    },
+    {
+      "type": "text", 
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Free Monthly Town Hall • Newark, NJ & Online"
+    },
+    {
+      "type": "textarea",
+      "id": "keith_tagline", 
+      "label": "Keith's Tagline",
+      "default": "I'm Keith Williams—43 years building software, now directing NJIT's Enterprise AI program."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Monthly discussions about AI's real impact. No hype. No doom. Just practical insights from someone who's navigated every tech cycle since 1982."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Join the Conversation"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link", 
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Shop Merch"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Top Padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom", 
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Bottom Padding",
+      "default": 128
+    }
+  ],
+  "presets": [
+    {
+      "name": "Everyday AI Hero"
+    }
+  ]
+}
+{% endschema %}

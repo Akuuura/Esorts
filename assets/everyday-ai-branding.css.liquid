@@ -1,0 +1,375 @@
+/* ============================================
+   EVERYDAY AI - SHOPIFY THEME BRANDING
+   Design System: Modern, Professional, Trust-Building
+   ============================================ */
+
+/* === CSS CUSTOM PROPERTIES === */
+:root {
+    /* Color System - Explorer/Sage Palette: Earthy, Natural, Grounded */
+    --primary: {{ settings.brand_primary | default: '#1d4035' }};
+    --primary-dark: #143028;
+    --primary-light: #2c5f4f;
+    --secondary: #2d2d2d;        /* Warm charcoal - not harsh black */
+    --accent: {{ settings.brand_accent | default: '#b85a1f' }};
+    --success: #6b9b37;
+    --warning: #e5a845;
+    
+    /* Neutrals - Warm, Natural */
+    /* Background Colors */
+    --background: {{ settings.brand_warm_white | default: '#fefdfb' }};
+    --surface: {{ settings.brand_cream | default: '#f7f5f0' }};
+    --sand: #e8e4dc;
+    --stone: #d1cbc1;
+    --gray-600: #4a4a4a;         /* Darker for better contrast */
+    --gray-700: #333;            /* Darker for better contrast */
+    --gray-800: #2d2d2d;
+    --gray-900: #1a1a1a;
+    
+    /* Typography */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+    
+    /* Spacing */
+    --container-width: 1200px;
+    --section-padding: 5rem 2rem;
+    
+    /* Effects */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 10%);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 10%);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Override Shopify's default colors with our brand palette */
+body {
+    font-family: var(--font-sans);
+    color: var(--secondary);
+    line-height: 1.7;
+    background: var(--warm-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* === ENHANCED NAVIGATION === */
+.header {
+    background: rgba(254, 253, 251, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--sand);
+}
+
+/* Logo Enhancement for Everyday AI */
+.header__logo .logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: var(--transition);
+}
+
+.logo-main {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-family: var(--font-sans);
+    margin: 0;
+}
+
+.logo-sub {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1;
+    opacity: 0.85;
+    margin-top: 0.125rem;
+}
+
+.header__logo .logo:hover .logo-main,
+.header__logo .logo:hover .logo-sub {
+    color: var(--accent);
+}
+
+.header__logo .logo:hover .logo-sub {
+    opacity: 1;
+}
+
+/* Navigation Links */
+.header__menu .menu-list__link {
+    color: var(--gray-700);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.header__menu .menu-list__link:hover {
+    color: var(--primary);
+}
+
+/* Call-to-Action Button in Navigation */
+.header .button-secondary {
+    background: var(--accent);
+    color: var(--warm-white);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.header .button-secondary:hover {
+    background: #9a4a15;
+    border-color: #9a4a15;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgb(184 90 31 / 30%);
+}
+
+/* === BUTTON SYSTEM OVERRIDES === */
+.button-primary {
+    background: var(--accent) !important;
+    color: var(--warm-white) !important;
+    border: 2px solid var(--accent) !important;
+    border-radius: var(--radius) !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+}
+
+.button-primary:hover {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgb(29 64 53 / 20%) !important;
+}
+
+.button-secondary {
+    background: transparent !important;
+    color: var(--secondary) !important;
+    border: 2px solid var(--stone) !important;
+    border-radius: var(--radius) !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+}
+
+.button-secondary:hover {
+    background: var(--cream) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+/* === PRODUCT CARD ENHANCEMENTS === */
+.product-card {
+    background: white !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: var(--transition) !important;
+    border: 2px solid transparent !important;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl) !important;
+    border-color: var(--sand) !important;
+}
+
+.product-card .price {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+.product-card .price--on-sale .price__regular {
+    color: var(--gray-600) !important;
+}
+
+/* === FORM ELEMENTS === */
+.form-input,
+.field__input {
+    border: 2px solid var(--sand) !important;
+    border-radius: var(--radius) !important;
+    background: var(--warm-white) !important;
+    color: var(--secondary) !important;
+    transition: border-color 0.3s ease !important;
+}
+
+.form-input:focus,
+.field__input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(29, 64, 53, 0.1) !important;
+    outline: none !important;
+}
+
+/* === SECTION BACKGROUNDS === */
+.color-scheme-1 {
+    background: var(--warm-white) !important;
+    color: var(--secondary) !important;
+}
+
+.color-scheme-2 {
+    background: var(--cream) !important;
+    color: var(--secondary) !important;
+}
+
+.color-scheme-3 {
+    background: var(--primary) !important;
+    color: var(--warm-white) !important;
+}
+
+/* === TYPOGRAPHY ENHANCEMENTS === */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--secondary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.section__title {
+    color: var(--secondary) !important;
+    font-weight: 900 !important;
+}
+
+/* === BADGES AND TAGS === */
+.badge {
+    background: var(--primary) !important;
+    color: var(--warm-white) !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* === CART AND CHECKOUT === */
+.cart-item .loading-overlay {
+    background: rgba(254, 253, 251, 0.8) !important;
+}
+
+.cart__footer .button {
+    background: var(--accent) !important;
+    color: var(--warm-white) !important;
+    border: 2px solid var(--accent) !important;
+}
+
+.cart__footer .button:hover {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* === MOBILE RESPONSIVENESS === */
+@media (max-width: 768px) {
+    .logo-main {
+        font-size: 1.25rem;
+    }
+    
+    .logo-sub {
+        font-size: 0.5rem;
+    }
+}
+
+/* === SUCCESS AND ERROR STATES === */
+.form__message--success {
+    background: rgba(107, 155, 55, 0.1) !important;
+    color: var(--success) !important;
+    border: 1px solid var(--success) !important;
+}
+
+.form__message--error {
+    background: rgba(211, 47, 47, 0.1) !important;
+    color: #d32f2f !important;
+    border: 1px solid #d32f2f !important;
+}
+
+/* === FOOTER STYLING === */
+.footer {
+    background: var(--primary) !important;
+    color: var(--warm-white) !important;
+}
+
+.footer a {
+    color: var(--warm-white) !important;
+    transition: var(--transition) !important;
+}
+
+.footer a:hover {
+    color: var(--accent) !important;
+}
+
+/* === NEWSLETTER AND FORMS === */
+.newsletter-form .field__input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    color: var(--warm-white) !important;
+}
+
+.newsletter-form .field__input::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* === SEARCH MODAL === */
+.search-modal {
+    background: rgba(254, 253, 251, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* === LOADING STATES === */
+.loading-overlay {
+    background: rgba(254, 253, 251, 0.8) !important;
+}
+
+/* === ACCESSIBILITY IMPROVEMENTS === */
+.skip-to-content-link:focus {
+    background: var(--accent) !important;
+    color: var(--warm-white) !important;
+}
+
+/* Focus states for better keyboard navigation */
+.button:focus,
+.menu-list__link:focus {
+    outline: 2px solid var(--accent) !important;
+    outline-offset: 2px !important;
+}
+
+/* === SPACING UTILITIES === */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* === ANIMATION ENHANCEMENTS === */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* === DARK MODE CONSIDERATIONS === */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --warm-white: #1a1a1a;
+        --cream: #2d2d2d;
+        --sand: #404040;
+        --stone: #666666;
+    }
+}
+
+/* === PRINT STYLES === */
+@media print {
+    .header,
+    .footer,
+    .newsletter-signup {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}

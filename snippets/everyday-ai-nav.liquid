@@ -1,0 +1,236 @@
+{% comment %}
+  Everyday AI Navigation Menu
+  Displays main navigation for the Everyday AI brand
+{% endcomment %}
+
+{% if settings.show_everyday_ai_nav %}
+<nav class="everyday-ai-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="{{ routes.root_url }}" class="nav-logo">
+        {% if settings.logo %}
+          <img src="{{ settings.logo | image_url: width: 150 }}" 
+               alt="{{ shop.name }}" 
+               class="logo-img"
+               width="150" 
+               height="auto">
+        {% else %}
+          <span class="nav-title">{{ settings.site_title | default: shop.name }}</span>
+          {% if settings.site_subtitle %}
+            <span class="nav-subtitle">{{ settings.site_subtitle }}</span>
+          {% endif %}
+        {% endif %}
+      </a>
+    </div>
+    
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="{{ routes.root_url }}" 
+           class="nav-link {% if request.page_type == 'index' %}active{% endif %}">
+          Home
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a href="{{ settings.about_keith_link | default: '#about-keith' }}" 
+           class="nav-link">
+          About Keith
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a href="{{ settings.town_hall_link | default: '#town-hall' }}" 
+           class="nav-link">
+          Town Hall
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a href="{{ routes.collections_url }}" 
+           class="nav-link {% if request.page_type == 'collection' or request.page_type == 'product' %}active{% endif %}">
+          Shop
+        </a>
+      </li>
+      
+      <li class="nav-item nav-cart">
+        <a href="{{ routes.cart_url }}" 
+           class="nav-link cart-link" 
+           id="cart-icon-bubble">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">{{ cart.item_count }}</span>
+        </a>
+      </li>
+    </ul>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" 
+            aria-expanded="false" 
+            aria-controls="mobile-menu"
+            aria-label="Toggle menu">
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+      <span class="hamburger"></span>
+    </button>
+  </div>
+</nav>
+
+<style>
+  .everyday-ai-nav {
+    background: var(--background, #fefdfb);
+    border-bottom: 1px solid var(--primary, #1d4035);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .nav-brand .nav-logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--primary, #1d4035);
+  }
+  
+  .nav-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  .nav-subtitle {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    opacity: 0.8;
+  }
+  
+  .logo-img {
+    max-height: 50px;
+    width: auto;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: var(--primary, #1d4035);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    background: var(--accent, #b85a1f);
+    color: white;
+  }
+  
+  .cart-link {
+    position: relative;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--accent, #b85a1f);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+  
+  .hamburger {
+    width: 25px;
+    height: 3px;
+    background: var(--primary, #1d4035);
+    margin: 2px 0;
+    transition: 0.3s;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--background, #fefdfb);
+      flex-direction: column;
+      gap: 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .nav-menu.active {
+      display: flex;
+    }
+    
+    .nav-item {
+      width: 100%;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .nav-link {
+      display: block;
+      padding: 1rem 2rem;
+      border-radius: 0;
+    }
+    
+    .mobile-menu-toggle {
+      display: flex;
+    }
+    
+    .nav-container {
+      position: relative;
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const menu = document.querySelector('.nav-menu');
+    
+    if (toggle && menu) {
+      toggle.addEventListener('click', function() {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', !isExpanded);
+        menu.classList.toggle('active');
+      });
+    }
+  });
+</script>
+{% endif %}

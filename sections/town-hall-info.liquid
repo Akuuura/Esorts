@@ -1,0 +1,250 @@
+{% liquid
+  assign badge_text = section.settings.badge_text
+  assign title = section.settings.title
+  assign description = section.settings.description
+  assign padding_top = section.settings.padding_top | default: 80
+  assign padding_bottom = section.settings.padding_bottom | default: 80
+%}
+
+<style>
+  .town-hall-info {
+    padding: {{ padding_top }}px 2rem {{ padding_bottom }}px;
+    background: white;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--primary, #1d4035);
+    color: var(--warm-white, #fefdfb);
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 900;
+    color: var(--secondary, #2d2d2d);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-intro {
+    font-size: 1.125rem;
+    color: var(--gray-700, #333);
+    line-height: 1.7;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: var(--cream, #f7f5f0);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--sand, #e8e4dc);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-card:hover {
+    border-color: var(--primary, #1d4035);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    color: var(--primary, #1d4035);
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary, #2d2d2d);
+    margin-bottom: 1rem;
+  }
+
+  .feature-card p {
+    color: var(--gray-700, #333);
+    line-height: 1.7;
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .town-hall-info {
+      padding: 48px 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .feature-card {
+      padding: 2rem;
+    }
+  }
+</style>
+
+<section class="town-hall-info" id="town-hall">
+  <div class="section-header">
+    {% if badge_text != blank %}
+      <span class="section-badge">{{ badge_text }}</span>
+    {% endif %}
+    
+    <h2>{{ title }}</h2>
+    
+    {% if description != blank %}
+      <p class="section-intro">{{ description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="features-grid">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'feature' %}
+          <div class="feature-card">
+            {% if block.settings.icon != blank %}
+              <i class="{{ block.settings.icon }} feature-icon"></i>
+            {% endif %}
+            
+            {% if block.settings.title != blank %}
+              <h3>{{ block.settings.title }}</h3>
+            {% endif %}
+            
+            {% if block.settings.description != blank %}
+              <p>{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Town Hall Info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "What We Do"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Real Talk About AI's Transformation"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Monthly meetups where we cut through the noise and have honest conversations about what AI really means for work, business, and life."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Class",
+          "info": "Use Font Awesome classes like 'fas fa-calendar-check'",
+          "default": "fas fa-lightbulb"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Town Hall Info",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "fas fa-calendar-check",
+            "title": "Monthly Town Halls",
+            "description": "First Tuesday of every month. Free for everyone. Real conversations about AI's impact on your work and life."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "fas fa-users",
+            "title": "Community Focused",
+            "description": "No products to sell, no agenda except truth. Join business leaders, students, and curious minds exploring AI together."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "fas fa-lightbulb",
+            "title": "Practical Insights",
+            "description": "Skip the hype and doom. Get actionable insights from someone who's navigated every tech transformation since 1982."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

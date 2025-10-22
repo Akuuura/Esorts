@@ -26,6 +26,10 @@
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
+    
+    <!-- Everyday AI Branding -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ 'everyday-ai-branding.css' | asset_url }}">
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
@@ -34,8 +38,12 @@
     {{ content_for_header }}
   </head>
 
-  <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
-    {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
+    <body class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type }}{% if request.page_type contains 'customers/' %} template-customers{% endif %}{% if request.page_type contains 'account/' %} template-account{% endif %}{% if request.page_type contains 'addresses/' %} template-addresses{% endif %}{% if request.page_type contains 'orders/' %} template-orders{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+    
+    {% render 'everyday-ai-nav' %}
     <div id="header-group">
       {% sections 'header-group' %}
     </div>

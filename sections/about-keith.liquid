@@ -1,0 +1,330 @@
+{% liquid
+  assign badge_text = section.settings.badge_text
+  assign title = section.settings.title
+  assign description = section.settings.description
+  assign profile_image = section.settings.profile_image
+  assign padding_top = section.settings.padding_top | default: 80
+  assign padding_bottom = section.settings.padding_bottom | default: 80
+%}
+
+<style>
+  .about-keith {
+    background: var(--cream, #f7f5f0);
+    padding: {{ padding_top }}px 2rem {{ padding_bottom }}px;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-image {
+    position: sticky;
+    top: 100px;
+  }
+
+  .profile-photo {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgb(29 64 53 / 15%);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 3px solid var(--warm-white, #fefdfb);
+  }
+
+  .profile-placeholder {
+    width: 100%;
+    height: 280px;
+    background: var(--sand, #e8e4dc);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary, #1d4035);
+    font-size: 4rem;
+    font-weight: 700;
+    border: 3px solid var(--warm-white, #fefdfb);
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--primary, #1d4035);
+    color: var(--warm-white, #fefdfb);
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .about-text h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--primary, #1d4035);
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .about-text p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--gray-700, #333);
+    margin-bottom: 2rem;
+  }
+
+  /* Credentials Grid */
+  .credentials {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0 3rem;
+    padding: 2rem;
+    background: var(--warm-white, #fefdfb);
+    border-radius: 8px;
+    border: 2px solid var(--sand, #e8e4dc);
+  }
+
+  .cred-item {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-right: 1px solid var(--sand, #e8e4dc);
+  }
+
+  .cred-item:last-child {
+    border-right: none;
+  }
+
+  .cred-item strong {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent, #b85a1f);
+    line-height: 1;
+    display: block;
+  }
+
+  .cred-item span {
+    font-size: 0.8125rem;
+    color: var(--gray-600, #4a4a4a);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .credentials {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .cred-item {
+      border-right: none;
+      border-bottom: 1px solid var(--sand, #e8e4dc);
+      padding: 1rem 0.5rem;
+    }
+    
+    .cred-item:nth-child(2n) {
+      border-right: none;
+    }
+    
+    .cred-item:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+    
+    .about-text h2 {
+      font-size: 2rem;
+    }
+    
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .about-image {
+      position: relative;
+      top: 0;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-keith {
+      padding: 48px 1.5rem;
+    }
+    
+    .about-image {
+      max-width: 200px;
+    }
+    
+    .about-text p {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<section class="about-keith">
+  <div class="about-content">
+    <div class="about-image">
+      {% if profile_image != blank %}
+        <img src="{{ profile_image | image_url: width: 280, height: 280 }}" alt="{{ title }}" class="profile-photo" width="280" height="280">
+      {% else %}
+        <div class="profile-placeholder">KW</div>
+      {% endif %}
+    </div>
+    
+    <div class="about-text">
+      {% if badge_text != blank %}
+        <span class="section-badge">{{ badge_text }}</span>
+      {% endif %}
+      
+      <h2>{{ title }}</h2>
+      
+      <!-- Credentials Grid -->
+      <div class="credentials">
+        <div class="cred-item">
+          <strong>{{ section.settings.credential_years | default: "43" }}</strong>
+          <span>{{ section.settings.credential_years_label | default: "Years in Tech" }}</span>
+        </div>
+        <div class="cred-item">
+          <strong>{{ section.settings.credential_students | default: "500+" }}</strong>
+          <span>{{ section.settings.credential_students_label | default: "Students Taught" }}</span>
+        </div>
+        <div class="cred-item">
+          <strong>{{ section.settings.credential_companies | default: "50+" }}</strong>
+          <span>{{ section.settings.credential_companies_label | default: "Companies Consulted" }}</span>
+        </div>
+        <div class="cred-item">
+          <strong>{{ section.settings.credential_talks | default: "100+" }}</strong>
+          <span>{{ section.settings.credential_talks_label | default: "Speaking Events" }}</span>
+        </div>
+      </div>
+      
+      {% if description != blank %}
+        <p>{{ description }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Keith",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Meet Keith Williams"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "43 Years Building Software, Now Directing AI's Future"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "From debugging assembly code in 1982 to directing NJIT's Enterprise AI program today. I've seen every tech revolution—and this one's different."
+    },
+    {
+      "type": "image_picker",
+      "id": "profile_image",
+      "label": "Profile Image"
+    },
+    {
+      "type": "header",
+      "content": "Credentials"
+    },
+    {
+      "type": "text",
+      "id": "credential_years",
+      "label": "Years Experience",
+      "default": "43"
+    },
+    {
+      "type": "text",
+      "id": "credential_years_label",
+      "label": "Years Label",
+      "default": "Years in Tech"
+    },
+    {
+      "type": "text",
+      "id": "credential_students",
+      "label": "Students Count",
+      "default": "500+"
+    },
+    {
+      "type": "text",
+      "id": "credential_students_label",
+      "label": "Students Label",
+      "default": "Students Taught"
+    },
+    {
+      "type": "text",
+      "id": "credential_companies",
+      "label": "Companies Count",
+      "default": "50+"
+    },
+    {
+      "type": "text",
+      "id": "credential_companies_label",
+      "label": "Companies Label",
+      "default": "Companies Consulted"
+    },
+    {
+      "type": "text",
+      "id": "credential_talks",
+      "label": "Talks Count",
+      "default": "100+"
+    },
+    {
+      "type": "text",
+      "id": "credential_talks_label",
+      "label": "Talks Label",
+      "default": "Speaking Events"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Keith"
+    }
+  ]
+}
+{% endschema %}
