@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endif %}
 
 <!-- Include snippets -->
-{% render 'product-card', product: product %}
+{% include 'product-card', product: product %}
 ```
 
 ## Step 6: Theme Testing
