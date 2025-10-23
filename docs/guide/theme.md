@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ### 3. Liquid Template Development
 
 #### Basic Liquid Syntax
+{% raw %}
 ```liquid
 <!-- Variables -->
 {{ product.title }}
@@ -230,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% endif %}
 
 <!-- Include snippets -->
-{% include 'product-card', product: product %}
+{% render 'product-card', product: product %}
 ```
 
 ## Step 6: Theme Testing
