@@ -233,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Include snippets -->
 {% render 'product-card', product: product %}
 ```
+{% endraw %}
 
 ## Step 6: Theme Testing
 
